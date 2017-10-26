@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+type pageData struct {
+	Title string
+}
+
 var tmpl *template.Template
 
 func init() {
@@ -18,7 +22,11 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	err := tmpl.ExecuteTemplate(w, "index.gohtml", nil)
+	pd := pageData{
+		Title: "Index",
+	}
+
+	err := tmpl.ExecuteTemplate(w, "index.gohtml", pd)
 	if err != nil {
 		log.Println(err)
 	}
