@@ -6,10 +6,16 @@ import (
 	"net/http"
 )
 
+type formData struct {
+	Name    string
+	Email   string
+	Subject string
+	Message string
+}
+
 type pageData struct {
-	Title     string
-	FirstName string
-	LastName  string
+	Title    string
+	FormData formData
 }
 
 var tmpl *template.Template
@@ -44,8 +50,10 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == http.MethodPost {
-		pd.FirstName = r.FormValue("fname")
-		pd.LastName = r.FormValue("lname")
+		pd.FormData.Name = r.FormValue("name")
+		pd.FormData.Email = r.FormValue("email")
+		pd.FormData.Subject = r.FormValue("subject")
+		pd.FormData.Message = r.FormValue("message")
 	}
 
 	err := tmpl.ExecuteTemplate(w, "index.gohtml", pd)
