@@ -1,0 +1,12 @@
+{{define "contact-form"}}
+<h1>Contact</h1>
+
+{{.FirstName}}
+{{.LastName}}
+
+<form action="/contact" method="post">
+    <input type="text" name="fname" />
+    <input type="text" name="lname" />
+    <input type="submit" />
+</form>
+{{end}}
